@@ -1,0 +1,60 @@
+# Licensed Materials - Property of IBM
+# (C) Copyright IBM Corporation 2019 All Rights Reserved
+# US Government Users Restricted Rights - Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+
+# Copyright (c) 2020 Red Hat, Inc.
+# Copyright Contributors to the Open Cluster Management project
+
+org: open-cluster-management
+
+global:
+  pullPolicy: Always
+  pullSecret: null
+  arch:
+  - amd64
+  - ppc64le
+  - s390x
+  certificateAuthority:
+    issuer: multicloud-ca-issuer
+    kind: Issuer
+  imageOverrides:
+    insights_client: "quay.io/open-cluster-management/insights-client:2.3.0-ec80a3bae66efa56d600a9f66e438e1c83a081c2"
+
+ocpingress: ""
+    
+hubconfig:
+  nodeSelector: null
+  replicaCount: 1
+
+client:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 70
+        podAffinityTerm:
+          topologyKey: topology.kubernetes.io/zone
+          labelSelector:
+            matchExpressions:
+            - key: ocm-antiaffinity-selector
+              operator: In
+              values:
+              - insightsclient 
+      - weight: 35
+        podAffinityTerm:
+          topologyKey: kubernetes.io/hostname
+          labelSelector:
+            matchExpressions:
+            - key: ocm-antiaffinity-selector
+              operator: In
+              values:
+              - insightsclient 
+
+insights:
+  name: insights
+  client:
+    resources:
+      requests:
+        memory: "32Mi"
+        cpu: "25m"
+      limits:
+        memory: "512Mi"
