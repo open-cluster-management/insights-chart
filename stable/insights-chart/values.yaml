@@ -14,7 +14,7 @@ global:
     issuer: multicloud-ca-issuer
     kind: Issuer
   imageOverrides:
-    insights_client: "quay.io/open-cluster-management/insights-client:2.3.0-ec80a3bae66efa56d600a9f66e438e1c83a081c2"
+    insights_client: ""
 
 ocpingress: ""
     
