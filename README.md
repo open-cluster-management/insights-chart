@@ -26,7 +26,7 @@
    make build-local
    ```
    
-5. Install the chart with the following command:
+5. Install the chart with the following command: 
   
    ```bash
    helm upgrade --install insights \
