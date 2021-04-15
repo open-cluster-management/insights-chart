@@ -73,17 +73,25 @@ spec:
         resources:
 {{ toYaml .Values.insights.client.resources | indent 10 }}
         livenessProbe:
-          exec:
-            command:
-            - ls
+          failureThreshold: 3
+          httpGet:
+            path: /liveness
+            port: 3030
+            scheme: HTTPS
           initialDelaySeconds: 20
           periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 10
         readinessProbe:
-          exec:
-            command:
-            - ls
+          failureThreshold: 3
+          httpGet:
+            path: /liveness
+            port: 3030
+            scheme: HTTPS
           initialDelaySeconds: 15
           periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 10
         volumeMounts:
         - name: insights-client-certs
           mountPath: /sslcert
