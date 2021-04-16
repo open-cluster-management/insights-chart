@@ -85,7 +85,7 @@ spec:
         readinessProbe:
           failureThreshold: 3
           httpGet:
-            path: /liveness
+            path: /readiness
             port: 3030
             scheme: HTTPS
           initialDelaySeconds: 15
