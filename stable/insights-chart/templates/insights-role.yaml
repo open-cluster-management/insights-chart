@@ -49,4 +49,12 @@ rules:
   verbs:
   - get 
   - list
-  - watch 
+  - watch
+- apiGroups:
+  - config.openshift.io
+  resources:
+  - clusterversions
+  verbs:
+  - list
+  - get
+  - watch
