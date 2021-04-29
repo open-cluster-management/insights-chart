@@ -83,11 +83,10 @@ spec:
           successThreshold: 1
           timeoutSeconds: 10
         readinessProbe:
+          exec:
+            command:
+            - ls
           failureThreshold: 3
-          httpGet:
-            path: /readiness
-            port: 3030
-            scheme: HTTPS
           initialDelaySeconds: 15
           periodSeconds: 60
           successThreshold: 1
