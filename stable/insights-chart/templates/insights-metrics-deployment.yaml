@@ -18,7 +18,6 @@ spec:
       app: {{ template "insights.name" . }}
       component: "insights-metrics"
       release: {{ .Release.Name }}
-      heritage: {{ .Release.Service }}
   template:
     metadata:
       labels:
@@ -66,28 +65,34 @@ spec:
             drop:
             - ALL
         args:
-        - --port=8080
-        - --telemetry-port=8081
+        - --port=8443
+        - --telemetry-port=8444
+        - "--tls-crt-file=/var/run/insights-metrics-certs/tls.crt"
+        - "--tls-key-file=/var/run/insights-metrics-certs/tls.key"
         resources:
 {{ toYaml .Values.insights.metrics.resources | indent 10 }}
-        livenessProbe:
-          exec:
-            command:
-            - ls
-          failureThreshold: 3
-          initialDelaySeconds: 20
-          periodSeconds: 60
-          successThreshold: 1
-          timeoutSeconds: 10
         readinessProbe:
-          exec:
-            command:
-            - ls
-          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 8444
+            scheme: HTTPS
           initialDelaySeconds: 15
-          periodSeconds: 60
-          successThreshold: 1
-          timeoutSeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8444
+            scheme: HTTPS
+          initialDelaySeconds: 15
+          periodSeconds: 5
+        volumeMounts:
+          - mountPath: "/var/run/insights-metrics-certs"
+            name: certs
+            readOnly: true
+      volumes:
+      - name: certs
+        secret:
+          secretName: insights-metrics-certs 
       {{- if .Values.global.pullSecret }}
       imagePullSecrets:
       - name: {{ .Values.global.pullSecret }}
