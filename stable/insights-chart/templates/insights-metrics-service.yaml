@@ -8,6 +8,7 @@ metadata:
     service.beta.openshift.io/serving-cert-secret-name: insights-metrics-certs
   name: insights-metrics
   labels:
+    insights-app: {{ .Values.insights.name }}
     app: {{ template "insights.name" . }}
     chart: {{ template "insights.chart" . }}
     component: insights-metrics
