@@ -70,6 +70,10 @@ spec:
           value: "false"
         - name: CCX_SERVER
           value: "https://cloud.redhat.com/api/insights-results-aggregator/v1"
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         resources:
 {{ toYaml .Values.insights.client.resources | indent 10 }}
         livenessProbe:
