@@ -29,8 +29,8 @@
 5. Install the chart with the following command: 
   
    ```bash
-   helm upgrade --install insights \
+   helm upgrade --install policyreport \
    --namespace open-cluster-management \
    --set global.pullSecret=quay-secret \
-   stable/insights-chart-2.3.0.tgz --tls
+   stable/policyreport-2.3.0.tgz 
    ```
