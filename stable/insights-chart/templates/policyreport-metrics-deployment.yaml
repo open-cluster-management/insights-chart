@@ -4,7 +4,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "insights.fullname" . }}-insights-metrics
+  name: {{ template "insights.fullname" . }}-metrics
   labels:
     app: {{ template "insights.name" . }}
     chart: {{ template "insights.chart" . }}
