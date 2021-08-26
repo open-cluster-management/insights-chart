@@ -59,3 +59,11 @@ rules:
   - list
   - get
   - watch
+- apiGroups:
+  - policy.open-cluster-management.io
+  resources:
+  - policies
+  verbs:
+  - list
+  - get
+  - watch
