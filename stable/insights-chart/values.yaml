@@ -16,6 +16,7 @@ global:
   imageOverrides:
     insights_client: ""
     insights_metrics: ""
+    kube_rbac_proxy: ""
 ocpingress: ""
     
 hubconfig:
