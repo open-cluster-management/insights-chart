@@ -67,3 +67,15 @@ rules:
   - list
   - get
   - watch
+- apiGroups:
+  - authentication.k8s.io
+  verbs:
+  - create
+  resources:
+  - tokenreviews
+- apiGroups:
+  - authorization.k8s.io
+  verbs:
+  - create
+  resources:
+  - subjectaccessreviews
