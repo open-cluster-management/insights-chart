@@ -59,7 +59,7 @@ spec:
         imagePullPolicy: "{{ .Values.global.pullPolicy }}"
         args:
         - --secure-listen-address=0.0.0.0:8443
-        - --upstream=http://127.0.0.1:8443/
+        - --upstream=http://127.0.0.1:8383/
         - --logtostderr=true
         - --v=10
         - "--tls-cert-file=/var/run/insights-metrics-certs/tls.crt"
@@ -85,22 +85,20 @@ spec:
         args:
         - --port=8383
         - --telemetry-port=8444
-        - "--tls-crt-file=/var/run/insights-metrics-certs/tls.crt"
-        - "--tls-key-file=/var/run/insights-metrics-certs/tls.key"
         resources:
 {{ toYaml .Values.insights.metrics.resources | indent 10 }}
         readinessProbe:
           httpGet:
             path: /healthz
             port: 8444
-            scheme: HTTPS
+            scheme: HTTP
           initialDelaySeconds: 15
           periodSeconds: 5
         livenessProbe:
           httpGet:
             path: /healthz
             port: 8444
-            scheme: HTTPS
+            scheme: HTTP
           initialDelaySeconds: 15
           periodSeconds: 5
         volumeMounts:
