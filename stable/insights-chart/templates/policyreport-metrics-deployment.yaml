@@ -84,6 +84,7 @@ spec:
             - ALL
         args:
         - --port=8383
+        - --host=127.0.0.1
         - --telemetry-port=8444
         resources:
 {{ toYaml .Values.insights.metrics.resources | indent 10 }}
