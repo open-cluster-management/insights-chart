@@ -61,7 +61,7 @@ spec:
         - --secure-listen-address=0.0.0.0:8443
         - --upstream=http://127.0.0.1:8383/
         - --logtostderr=true
-        - --v=10
+        - --v=6
         - "--tls-cert-file=/var/run/insights-metrics-certs/tls.crt"
         - "--tls-private-key-file=/var/run/insights-metrics-certs/tls.key"
         ports:
