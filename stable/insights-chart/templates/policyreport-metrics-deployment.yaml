@@ -39,20 +39,15 @@ spec:
               - key: beta.kubernetes.io/arch
                 operator: In
                 values:
-                {{- range .Values.global.arch }}
-                - {{ . }}
-                {{- end }}
-        {{- with .Values.metrics.affinity.podAntiAffinity }}
+                {{- toYaml .Values.global.arch | nindent 18 }}
+        {{- with .Values.client.affinity.podAntiAffinity }}
         podAntiAffinity: 
-{{ toYaml . | indent 10 }}
+        {{- toYaml . | nindent 10 }}
         {{- end }}
+      {{- with .Values.hubconfig.tolerations }}
       tolerations:
-        - key: dedicated
-          operator: Exists
-          effect: NoSchedule
-        - effect: NoSchedule 
-          key: node-role.kubernetes.io/infra 
-          operator: Exists
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - name: kube-rbac-proxy
         image: {{ .Values.global.imageOverrides.kube_rbac_proxy}}
@@ -87,7 +82,7 @@ spec:
         - --host=127.0.0.1
         - --telemetry-port=8444
         resources:
-{{ toYaml .Values.insights.metrics.resources | indent 10 }}
+        {{- toYaml .Values.insights.client.resources | nindent 10 }}
         readinessProbe:
           httpGet:
             path: /healthz
@@ -119,5 +114,5 @@ spec:
       hostPID: false
       {{- with .Values.hubconfig.nodeSelector }}
       nodeSelector:
-      {{ toYaml . | indent 8 }}
+      {{- toYaml . | nindent 8 }}
       {{- end }}
