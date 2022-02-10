@@ -40,20 +40,15 @@ spec:
               - key: beta.kubernetes.io/arch
                 operator: In
                 values:
-                {{- range .Values.global.arch }}
-                - {{ . }}
-                {{- end }}
+                {{- toYaml .Values.global.arch | nindent 18 }}
         {{- with .Values.client.affinity.podAntiAffinity }}
         podAntiAffinity: 
-{{ toYaml . | indent 10 }}
+        {{- toYaml . | nindent 10 }}
         {{- end }}
+      {{- with .Values.hubconfig.tolerations }}
       tolerations:
-        - key: dedicated
-          operator: Exists
-          effect: NoSchedule
-        - effect: NoSchedule 
-          key: node-role.kubernetes.io/infra 
-          operator: Exists
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - name: client
         image: {{ .Values.global.imageOverrides.insights_client }}
@@ -83,7 +78,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         resources:
-{{ toYaml .Values.insights.client.resources | indent 10 }}
+        {{- toYaml .Values.insights.client.resources | nindent 10 }}
         livenessProbe:
           exec:
             command:
@@ -118,5 +113,5 @@ spec:
       hostPID: false
       {{- with .Values.hubconfig.nodeSelector }}
       nodeSelector:
-      {{ toYaml . | indent 8 }}
+      {{- toYaml . | nindent 8 }}
       {{- end }}
