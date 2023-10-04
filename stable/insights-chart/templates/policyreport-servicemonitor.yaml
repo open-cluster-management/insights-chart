@@ -5,7 +5,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: acm-{{ .Values.insights.name }}
-  namespace: openshift-monitoring
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ .Values.insights.name }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
