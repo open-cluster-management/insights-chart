@@ -1,4 +1,7 @@
 <!-- Copyright Contributors to the Open Cluster Management project -->
+
+**This repo is not being used anymore. Please make changes directly to https://github.com/stolostron/multiclusterhub-operator/tree/main/pkg/templates/charts/toggle/insights.**
+
 # insights-chart
 [Open Cluster Management](https://open-cluster-management.io/) - Helm chart for the insights component.
 
