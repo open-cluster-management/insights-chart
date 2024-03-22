@@ -1,4 +1,8 @@
 <!-- Copyright Contributors to the Open Cluster Management project -->
+
+
+> This repository has been deprecated in ACM 2.7.z and later. It has been moved to <https://github.com/stolostron/multiclusterhub-operator> as a sub-package `pkg/templates/charts/toggle/insights`.
+
 # insights-chart
 [Open Cluster Management](https://open-cluster-management.io/) - Helm chart for the insights component.
 
